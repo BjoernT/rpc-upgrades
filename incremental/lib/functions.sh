@@ -423,6 +423,16 @@ function prepare_yoga {
   popd
 }
 
+function prepare_zed {
+  ensure_working_dir
+
+  pushd /opt/rpc-upgrades/incremental/playbooks
+    if [[ ! -f "${UPGRADES_WORKING_DIR}/zed_upgrade_prep.complete" ]]; then
+      openstack-ansible prepare-zed-upgrade.yml
+    fi
+  popd
+}
+
 function cleanup {
   if [ -f "/etc/openstack_deploy/user_rpco_upgrade.yml" ]; then
     rm /etc/openstack_deploy/user_rpco_upgrade.yml
